@@ -11,10 +11,11 @@ export default class Get extends Action {
     const context = Context.getInstance();
     const model = context.getModelFromState(state);
     const storeName = model.entity.toLowerCase();
+    
     const id = typeof params === 'object' ? params.id : params;
 
     if (id) {
-      const records = model.$localStore[storeName]
+      const records = model.$localStore
         .read()
         .get(storeName)
         .find({ $id: id })

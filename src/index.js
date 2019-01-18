@@ -8,7 +8,9 @@ export default class VuexOrmLowdbPlugin {
    * @param {Options} options The options passed to VuexORM.install
    * @returns {VuexOrmLowdb}
    */
+
   static install(components, options) {
-    return new VuexOrmLowdb(components, options);
+    VuexOrmLowdbPlugin.instance = new VuexOrmLowdb(components, options);
+    return VuexOrmLowdbPlugin.instance;
   }
 }
