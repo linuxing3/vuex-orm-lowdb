@@ -3,7 +3,6 @@ import Vuex from "vuex";
 import VuexORM, { Database, Model } from "@vuex-orm/core";
 import VuexORMLowdb from "../src";
 
-VuexORM.use(VuexORMLowdb);
 Vue.use(Vuex);
 
 /**
@@ -11,6 +10,10 @@ Vue.use(Vuex);
  */
 function createStore(entities, namespace = "entities") {
   const database = new Database();
+
+  VuexORM.use(VuexORMLowdb, {
+    database
+  });
 
   entities.forEach(entity => {
     database.register(entity.model, entity.module || {});
@@ -55,17 +58,6 @@ describe("Unit – Database", () => {
     database.register(Post, posts);
 
     expect(database.entities).toEqual(expected);
-  });
-
-  it("can create vuex store", () => {
-    const entities = [
-      { name: "users", model: User, module: users },
-      { name: "posts", model: Post, module: posts },
-    ];
-
-    const store = createStore(entities);
-
-    expect(store.plugins).not.toBeUndefined;
   });
 
   it("can create vuex store with lowdb plugin", () => {

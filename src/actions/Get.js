@@ -14,16 +14,15 @@ export default class Get extends Action {
     const id = typeof params === 'object' ? params.id : params;
 
     if (id) {
-      let records = model.$localStore[storeName]
+      const records = model.$localStore[storeName]
         .read()
         .get(storeName)
         .find({ $id: id })
         .value();
       return dispatch('insertOrUpdate', {
-          data: records,
-        });
-      } else {
-      return null;
+        data: records,
+      });
     }
+    return null;
   }
 }

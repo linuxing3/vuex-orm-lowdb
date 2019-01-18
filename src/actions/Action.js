@@ -1,9 +1,9 @@
 // import localforage from 'localforage';
 
-import Datastore from "lowdb";
-import FileSync from "lowdb/adapters/FileSync";
-import Memory from "lowdb/adapters/Memory";
-import LodashId from "lodash-id";
+import Datastore from 'lowdb';
+import FileSync from 'lowdb/adapters/FileSync';
+import Memory from 'lowdb/adapters/Memory';
+// import LodashId from 'lodash-id';
 
 import _ from 'lodash';
 
@@ -63,21 +63,23 @@ export default class Action {
     };
 
     const option = {
-      name: Context.getInstance().options.name || "vuex", // default is `vuex`
-      storeName: model.entity.toLowerCase() || "data", // default is `data`
+      name: Context.getInstance().options.name || 'vuex', // default is `vuex`
+      storeName: model.entity.toLowerCase() || 'data', // default is `data`
     };
 
     // 存储池
     // 索引方式: { data: { data: { data: [] } } }
-    model.$localStore = {}
+    model.$localStore = {};
 
     // 添加每个数据文件
-    model.$localStore[option.storeName] = Datastore(new FileSync(option.storeName) || new Memory(option.storeName));
+    model.$localStore[option.storeName] = Datastore(
+      new FileSync(option.storeName) || new Memory(option.storeName),
+    );
 
     // 初始化每个数据文件的数据
-    _.keys(model.$localStore).map(key => {
-      let db = model.$localStore[key];
-      db.set(storeName, []).write();
+    _.keys(model.$localStore).map((key) => {
+      const db = model.$localStore[key];
+      db.set(option.storeName, []).write();
     });
 
     // model.$localStore._.mixin(LodashId);

@@ -9,6 +9,9 @@ module.exports = {
   },
   rules: {
     "no-param-reassign": [2, { "props": false }],
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "class-methods-use-this": "off",
+    "array-callback-return": "off",
+    "func-names": "off",
   }
 }

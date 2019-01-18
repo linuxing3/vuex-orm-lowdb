@@ -20,17 +20,17 @@ export default class Destroy extends Action {
       const promises = records.map((record) => {
         const key = this.getRecordKey(record);
         const promise = new Promise((resolves, rejects) => {
-          try {            
+          try {
             model.$localStore[storeName]
               .read()
               .get(storeName)
               .remove({ $id: key })
               .write();
-            resolves(true)
+            resolves(true);
           } catch (error) {
             rejects(error);
           }
-        })
+        });
         return promise;
       });
 

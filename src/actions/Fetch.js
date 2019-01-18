@@ -12,7 +12,7 @@ export default class Fetch extends Action {
     const model = context.getModelFromState(state);
     const storeName = model.entity.toLowerCase();
 
-    let records = model.$localStore[storeName]
+    const records = model.$localStore[storeName]
       .read()
       .get(storeName)
       .value();

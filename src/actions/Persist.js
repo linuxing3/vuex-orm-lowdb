@@ -18,14 +18,14 @@ export default class Persist extends Action {
         result[entity].forEach((record) => {
           const model = context.getModelByEntity(entity);
           const storeName = model.entity.toLowerCase();
-          const key = this.getRecordKey(record);
+          // const key = this.getRecordKey(record);
           const data = Model.getPersistableFields(model).reduce((entry, field) => {
             entry[field] = record[field];
             return entry;
           }, {});
 
           /**
-           * 
+           *
            * @example
            * promises.push(model.$localStore.setItem(key, data));
           */
@@ -36,11 +36,11 @@ export default class Persist extends Action {
                 .get(storeName)
                 .push(data)
                 .write();
-              resolves(true)
+              resolves(true);
             } catch (error) {
               rejects(error);
             }
-          })
+          });
           promises.push(promise);
         });
       });

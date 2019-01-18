@@ -1,9 +1,10 @@
+import _ from "lodash";
 import Context from './common/context';
-import Action from './actions/Action'
-import Fetch from './actions/Fetch'
-import Persist from './actions/Persist'
-import Get from './actions/Get'
-import Destroy from './actions/Destroy'
+import Action from './actions/Action';
+import Fetch from './actions/Fetch';
+import Persist from './actions/Persist';
+import Get from './actions/Get';
+import Destroy from './actions/Destroy';
 
 export default class VuexOrmLowdb {
   /**
@@ -41,7 +42,7 @@ export default class VuexOrmLowdb {
     /**
      * Transform Model and Modules
      */
-    _.map(context.database.entities, entity => {
+    _.map(context.database.entities, (entity) => {
       entity.model = Action.transformModel(entity.model);
       return entity;
     });
