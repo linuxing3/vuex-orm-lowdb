@@ -1,6 +1,6 @@
 {
   "name": "vuex-orm-lowdb",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Vuex-ORM Plugin to sync the data with lowdb.",
   "main": "dist/index.js",
   "scripts": {
