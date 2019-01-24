@@ -1,6 +1,6 @@
 {
   "name": "vuex-orm-lowdb",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Vuex-ORM Plugin to sync the data with lowdb.",
   "main": "./dist/index.js",
   "scripts": {
@@ -10,7 +10,8 @@
     "test": "jest"
   },
   "repository": {
-    "type": "git+https://github.com/linuxing3/vuex-orm-lowdb.git"
+    "type": "git",
+    "url": "git+https://github.com/linuxing3/vuex-orm-lowdb.git"
   },
   "keywords": [
     "vue",
