@@ -3,7 +3,7 @@
 
 # Vuex ORM Plugin: Lowdb
 
-VuexOrmLowdb is a plugin for the amazing [VuexORM](https://github.com/vuex-orm/vuex-orm) that let you sync your [Vuex](https://github.com/vuejs/vuex) Store with an IndexedDB database using Lowdb
+VuexOrmLowdb is a plugin for the amazing [VuexORM](https://github.com/vuex-orm/vuex-orm) that let you sync your [Vuex](https://github.com/vuejs/vuex) Store with Lowdb
 
 ## Installation
 
@@ -28,7 +28,7 @@ const database = new VuexORM.Database()
 
 VuexORM.use(VuexOrmLowdb, {
   database,
-  dbPath: "~/"
+  dbPath: "/public/data"
 })
 
 // ...
@@ -48,11 +48,10 @@ This plugin add some vuex actions to load and persist data in an IndexedDB
 
 | Action  | Description |
 | ------- | ----------- |
-| $fetch  | Load data from the IndexedDB store associated to a model and persist them in the Vuex Store |
-| $get    | Load data by id from the IndexedDB store associated and persist it to Vuex Store |
-| $create | Like VuexORM `insert`, but also persist data to IndexedDB |
-| $update | Like VuexORM `update`, but also persist changes to IndexedDB |
-| $delete | Like VuexORM `delete`, but also remove data from IndexedDB |
+| $fetch  | Load data from the lowdb store associated to a model and persist them in the Vuex Store |
+| $create | Like VuexORM `insert`, but also persist data to lowdb |
+| $update | Like VuexORM `update`, but also persist changes to lowdb |
+| $delete | Like VuexORM `delete`, but also remove data from lowdb |
 
 ### Example Usage
 
@@ -77,27 +76,34 @@ This plugin add some vuex actions to load and persist data in an IndexedDB
         todo: ''
       }
     },
-    
     computed: {
       todos () {
         return Todo.query().all()
       }
     },
-    
     async mounted () {
-      // Load todos from IndexedDB
       await Todo.$fetch()
     },
-    
     methods: {
       addTodo () {
         if (this.todo) {
-          // Insert the todo in VuexORM Store and also persist it to IndexedDB
           Todo.$create({
             title: this.todo
           })
         }
-      }
+      },
+      deleteTodo() {
+        Todo.$delete({
+          id: 1,
+          title: this.todo
+        })
+      },
+      updateTodo() {
+        Todo.$update({
+          id: 1,
+          title: this.todo
+        })
+      },
     }
   }
 </script>
