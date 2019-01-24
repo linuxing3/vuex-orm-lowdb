@@ -1,9 +1,9 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![License](https://img.shields.io/npm/l/vuex-orm-lowdb.svg)](https://github.com/linuxing3/vuex-orm-lowdb/blob/master/LICENSE.md)
 
-# Vuex ORM Plugin: LocalForage
+# Vuex ORM Plugin: Lowdb
 
-VuexOrmLowdb is a plugin for the amazing [VuexORM](https://github.com/vuex-orm/vuex-orm) that let you sync your [Vuex](https://github.com/vuejs/vuex) Store with an IndexedDB database using [LocalForage](https://github.com/localForage/localForage).
+VuexOrmLowdb is a plugin for the amazing [VuexORM](https://github.com/vuex-orm/vuex-orm) that let you sync your [Vuex](https://github.com/vuejs/vuex) Store with an IndexedDB database using Lowdb
 
 ## Installation
 
@@ -27,7 +27,8 @@ import VuexOrmLowdb from 'vuex-orm-lowdb'
 const database = new VuexORM.Database()
 
 VuexORM.use(VuexOrmLowdb, {
-  database
+  database,
+  dbPath: "~/"
 })
 
 // ...

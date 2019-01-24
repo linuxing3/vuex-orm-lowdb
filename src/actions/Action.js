@@ -17,17 +17,21 @@ export default class Action {
 
     let storeName = model.entity.toLowerCase();
 
-    let { dbPath } = Context.getInstance().options;
-    let storePath = resolve(dbPath) || "~/";
+    let dbPath = Context.getInstance().options.dbPath;
+    let storePath = resolve(dbPath);
     storePath = join(storePath, storeName);
 
-    // 添加每个数据文件
+    // 添加数据文件
     model.$localStore = Datastore(
       new FileSync(storePath) || new Memory(storePath),
     );
 
-    // 初始化每个数据文件的数据
-    model.$localStore.set(storeName, []).write();
+    // 初始化数据文件的数据
+    if (!model.$localStore.has(storeName).value()) {
+      model.$localStore.set(storeName, []).write();
+    } else {
+      console.log(`${storeName} default value exists`);
+    }
 
     // model.$localStore._.mixin(LodashId);
 

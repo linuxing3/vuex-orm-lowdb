@@ -26,6 +26,8 @@ export const VuexOrmPluginConfig = {
    */
   name: 'vuex',
 
+  dbPath: '/data',
+
   commonFields: {},
 
   /**

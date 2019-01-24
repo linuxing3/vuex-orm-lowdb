@@ -10,14 +10,14 @@ export default class Get extends Action {
   static async call({ state, dispatch }, params) {
     const context = Context.getInstance();
     const model = context.getModelFromState(state);
-    const storeName = model.entity.toLowerCase();
-    
+    const entity = model.entity.toLowerCase();
+
     const id = typeof params === 'object' ? params.id : params;
 
     if (id) {
       const records = model.$localStore
         .read()
-        .get(storeName)
+        .get(entity)
         .find({ $id: id })
         .value();
       return dispatch('insertOrUpdate', {

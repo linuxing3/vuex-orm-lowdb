@@ -1,5 +1,5 @@
-import Action from './Action';
-import Context from '../common/context';
+import Action from "./Action";
+import Context from "../common/context";
 import { keyBy } from "lodash";
 
 export default class Fetch extends Action {
@@ -11,17 +11,17 @@ export default class Fetch extends Action {
   static async call({ state, dispatch }) {
     const context = Context.getInstance();
     const model = context.getModelFromState(state);
-    const storeName = model.entity.toLowerCase();
+    const entity = model.entity.toLowerCase();
 
     const records = model.$localStore
       .read()
-      .get(storeName)
+      .get(entity)
       .value();
 
-    newRecords = keyBy(records, (o) => o["_id"]);
+    let newRecords = keyBy(records, o => o["_id"]);
 
-    return dispatch('insertOrUpdate', {
-      data: newRecords
+    return dispatch("insertOrUpdate", {
+      data: newRecords,
     });
   }
 }

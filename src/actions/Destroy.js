@@ -1,5 +1,5 @@
-import Action from './Action';
-import Context from '../common/context';
+import Action from "./Action";
+import Context from "../common/context";
 
 export default class Destroy extends Action {
   /**
@@ -9,29 +9,24 @@ export default class Destroy extends Action {
    * @param {string} entityName
    */
   static async call({ state, dispatch }, payload) {
+    console.log(payload);
 
-    // FIXME persisting logic
-
-    return dispatch('delete', payload).then((result) => {
+    return dispatch("delete", payload._id || payload.$id).then(result => {
       const context = Context.getInstance();
-      const entity = context.entity;
-
-      const records = Array.isArray(result) ? result : [result];
 
       const model = context.getModelFromState(state);
-
-      records.forEach(record => {
-        try {
-          model.$localStore
-            .read()
-            .get(entity)
-            .remove({ $id: record.$id })
-            .write();
-          resolves(true);
-        } catch (error) {
-          rejects(error);
-        }
-      })
+      const entity = model.entity.toLowerCase();
+      console.log(entity);
+      const query = { $id: payload.$id } || { _id: payload._id };
+      try {
+        model.$localStore
+          .read()
+          .get(entity)
+          .remove(query)
+          .write();
+      } catch (error) {
+        console.log(error);
+      }
     });
   }
 }

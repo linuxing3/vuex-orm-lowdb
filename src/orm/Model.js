@@ -16,9 +16,23 @@ export default class Model {
       || field instanceof context.components.Boolean;
   }
 
+  /**
+   * return fields which are attribute
+   * @param {model} model 
+   */
   static getPersistableFields(model) {
     const fields = model.getFields();
 
     return Object.keys(fields).filter(key => Model.isFieldAttribute(fields[key]));
+  }
+
+  /**
+   * return fields which are relation
+   * @param {model} model 
+   */
+  static getUnPersistableFields(model) {
+    const fields = model.getFields();
+
+    return Object.keys(fields).filter(key => !Model.isFieldAttribute(fields[key]));
   }
 }
