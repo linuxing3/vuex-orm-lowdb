@@ -11,13 +11,18 @@ export default class Destroy extends Action {
   static async call({ state, dispatch }, payload) {
     console.log(payload);
 
-    return dispatch("delete", payload._id || payload.$id).then(result => {
-      const context = Context.getInstance();
+    const id =  typeof params === "object" ? payload.$id || payload._id || payload.id : payload;
 
+    return dispatch("delete", { where: id }).then(result => {
+      console.log(result);
+
+      const context = Context.getInstance();
       const model = context.getModelFromState(state);
       const entity = model.entity.toLowerCase();
       console.log(entity);
-      const query = { $id: payload.$id } || { _id: payload._id };
+
+      const query = { $id: id } || { _id: id } || { id: id};
+
       try {
         model.$localStore
           .read()
