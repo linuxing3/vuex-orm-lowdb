@@ -14,11 +14,13 @@ export default class Get extends Action {
 
     const id = typeof params === 'object' ? params.id : params;
 
+    const query = { _id: id } || { id };
+
     if (id) {
       const records = model.$localStore
         .read()
         .get(entity)
-        .find({ $id: id })
+        .find(query)
         .value();
       return dispatch('insertOrUpdate', {
         data: records,

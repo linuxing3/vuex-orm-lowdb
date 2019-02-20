@@ -11,7 +11,7 @@ export default class Destroy extends Action {
   static async call({ state, dispatch }, payload) {
     console.log(payload);
 
-    const id =  typeof params === "object" ? payload.$id || payload._id || payload.id : payload;
+    const id =  typeof params === "object" ? payload._id || payload.id : payload;
 
     return dispatch("delete", { where: id }).then(result => {
       console.log(result);
@@ -21,7 +21,7 @@ export default class Destroy extends Action {
       const entity = model.entity.toLowerCase();
       console.log(entity);
 
-      const query = { $id: id } || { _id: id } || { id: id};
+      const query = { _id: id } || { id: id };
 
       try {
         model.$localStore

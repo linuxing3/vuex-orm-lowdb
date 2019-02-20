@@ -23,13 +23,13 @@ export default class Persist extends Action {
       const record = result[entity][0]; // should equal to payload
       console.log(record);
 
-      const id = record.$id || record._id || record.id;
+      const query = { _id: id } || { id: id };
 
       if (action === "update") {
         model.$localStore
           .read()
           .get(entity)
-          .find({ $id: id })
+          .find(query)
           .assign(record)
           .write();
       } else {
